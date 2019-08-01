@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css' )}}" type="text/css" />
+
+</head>
+
+<body>
+
+    <header>
+
+        <nav>
+            <div class="nav-wrapper">
+                <a href="{{ url_for('get_tasks')}}" class="brand-logo">Task Manager</a>
+                
+                <!-- This activates on mobiles to create the burger menu -->
+                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                
+                <!-- Activates on larger screens. Displays on top right of navbar -->
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="{{ url_for('get_tasks')}}">Home</a></li>
+                    <li><a href="{{ url_for('add_task')}}">New Task</a></li>
+                    <li><a href="{{ url_for('get_categories')}}">Manage Categories</a></li>
+                </ul>
+                
+                <!-- Activates on mobile devices - displays on the top left of navbar under burger menu -->
+                <ul class="side-nav" id="mobile-demo">
+                    <li><a href="{{ url_for('get_tasks')}}">Home</a></li>
+                    <li><a href="{{ url_for('add_task')}}">New Task</a></li>
+                    <li><a href="{{ url_for('get_categories')}}">Manage Categories</a></li>
+                </ul>
+            </div>
+        </nav>
+
+
+    </header>
+    <div class="container">
+
+        {% block content %} {% endblock %}
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.collapsible').collapsible();
+            $('select').material_select();
+            $(".button-collapse").sideNav();
+        });
+
+        // js for the date picker
+
+        $('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 15, // Creates a dropdown of 15 years to control year,
+            today: 'Today',
+            clear: 'Clear',
+            close: 'Ok',
+            closeOnSelect: false, // Close upon selecting a date
+            container: undefined // ex. 'body' will append picker to body
+
+        });
+
+        // This js is provided before the video as a correction to Materialcss
+        // and Chrom version 73 onwards. Add id="matfix" to the div with the 
+        // datepicker as well
+
+        document.getElementById("matfix").addEventListener("click", function(e) {
+            e.stopPropagation();
+        });
+    </script>
+
+</body>
+
+</html>
